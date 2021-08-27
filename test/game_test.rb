@@ -5,11 +5,14 @@ require_relative "../lib/player"
 
 class GameTest < Minitest::Test
   def setup
+    @player_1 = Player.new(name: "Player one", marker: "x")
+    @player_2 = Player.new(name: "Player two", marker: "y")
+
     @game = Game.new(
       board: Board.new,
       players: [
-        Player.new(name: "Player one", marker: "x"),
-        Player.new(name: "Player two", marker: "y"),
+        @player_1,
+        @player_2,
       ],
     )
   end
@@ -127,5 +130,32 @@ class GameTest < Minitest::Test
     )
 
     assert_equal player_2, won_game.winner
+  end
+
+  def test_current_player_starts_with_first_supplied_player
+    assert_equal @player_1, @game.current_player
+  end
+
+  def test_make_move_rotates_current_player
+    @game.make_move(0, 0)
+    assert_equal @player_2, @game.current_player
+
+    @game.make_move(1, 1)
+    assert_equal @player_1, @game.current_player
+  end
+
+  def test_make_move_raises_an_error_if_cell_is_not_valid
+    assert_raises Board::InvalidCellError do
+      @game.make_move(42, 42)
+    end
+    assert_equal @player_1, @game.current_player
+  end
+
+  def test_make_move_raises_an_error_if_cell_is_occupied
+    assert_raises Game::OccupiedCellError do
+      @game.make_move(0, 0)
+      @game.make_move(0, 0)
+    end
+    assert_equal @player_2, @game.current_player
   end
 end
