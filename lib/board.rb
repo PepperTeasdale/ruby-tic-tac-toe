@@ -21,6 +21,14 @@ class Board
     !board.flatten.any? { |cell| cell == " " }
   end
 
+  def sequences
+    # TODO: hard-coded to 3x3 board
+    board + board.transpose + [
+      [board[0][0], board[1][1], board[2][2]],
+      [board[2][0], board[1][1], board[0][2]],
+    ]
+  end
+
   private
 
   attr_accessor :board

@@ -72,4 +72,27 @@ class BoardTest < Minitest::Test
 
     assert_equal(true, full_board.full?)
   end
+
+  def test_sequences_returns_all_columns_rows_and_diagonal_sequences
+    board_config = [
+      ["a", "b", "c"],
+      ["d", "e", "f"],
+      ["g", "h", "i"],
+    ]
+
+    board = Board.new(board_config)
+
+    expected_sequences = [
+      ["a", "b", "c"],
+      ["d", "e", "f"],
+      ["g", "h", "i"],
+      ["a", "d", "g"],
+      ["b", "e", "h"],
+      ["c", "f", "i"],
+      ["a", "e", "i"],
+      ["g", "e", "c"],
+    ]
+
+    assert_equal(expected_sequences, board.sequences)
+  end
 end

@@ -5,7 +5,15 @@ class Game
   end
 
   def finished?
-    board.full?
+    board.full? || !!winner
+  end
+
+  def winner
+    players.find do |player|
+      board.sequences.any? do |seq|
+        seq.uniq.length == 1 && seq.first == player.marker
+      end
+    end
   end
 
   private
