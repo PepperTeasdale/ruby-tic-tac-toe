@@ -1,20 +1,16 @@
 class Board
   def initialize
     @board = [
-      [:empty, :empty, :empty],
-      [:empty, :empty, :empty],
-      [:empty, :empty, :empty],
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "],
     ]
   end
 
   def to_s
-    <<~BOARD
-   |   |
------------
-   |   |
------------
-   |   |
-    BOARD
+    board.map do |row|
+      row.map { |cell| " #{cell} " }.join("|")
+    end.join("\n-----------\n")
   end
 
   def get_cell_value(x, y)
