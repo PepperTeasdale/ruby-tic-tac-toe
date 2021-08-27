@@ -1,5 +1,5 @@
 class Game
-  class OccupiedCellError < Exception; end
+  attr_reader :board
 
   def initialize(board:, players:)
     @board = board
@@ -29,6 +29,8 @@ class Game
     increment_current_move
   end
 
+  class OccupiedCellError < Exception; end
+
   private
 
   def check_move(row, col)
@@ -40,5 +42,5 @@ class Game
     @current_move = (@current_move + 1) % players.length
   end
 
-  attr_reader :board, :players
+  attr_reader :players
 end
