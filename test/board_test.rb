@@ -6,7 +6,7 @@ class BoardTest < Minitest::Test
     @board = Board.new
   end
 
-  def test_board_to_s_shows_board_state
+  def test_to_s_shows_board_state
     expected_board = <<~BOARD
    |   |
 -----------
@@ -16,5 +16,16 @@ class BoardTest < Minitest::Test
     BOARD
 
     assert_equal expected_board, @board.to_s
+  end
+
+  def test_get_cell_value_returns_symbol_of_the_specified_cell_value
+    actual = @board.get_cell_value(0, 0)
+    assert_equal :empty, actual
+  end
+
+  def test_set_cell_value_updates_the_cell_state
+    @board.set_cell_value(0, 0, :x)
+    actual = @board.get_cell_value(0, 0)
+    assert_equal :x, actual
   end
 end
