@@ -6,6 +6,25 @@ class BoardTest < Minitest::Test
     @board = Board.new
   end
 
+  def test_board_can_be_initialized_with_custom_board
+    board_config = board = [
+      [" ", " ", "x"],
+      [" ", " ", " "],
+      [" ", " ", " "],
+    ]
+    custom_board = Board.new(board_config)
+
+    expected_board = <<~BOARD.chomp
+   |   | x 
+-----------
+   |   |   
+-----------
+   |   |   
+    BOARD
+
+    assert_equal expected_board, custom_board.to_s
+  end
+
   def test_to_s_shows_initial_board_state
     expected_board = <<~BOARD.chomp
    |   |   
@@ -40,5 +59,17 @@ class BoardTest < Minitest::Test
     @board.set_cell_value(0, 0, "x")
     actual = @board.get_cell_value(0, 0)
     assert_equal "x", actual
+  end
+
+  def test_full_returns_true_when_all_cells_are_occupied
+    finished_board_config = [
+      ["x", "x", "x"],
+      ["x", "x", "x"],
+      ["x", "x", "x"],
+    ]
+
+    full_board = Board.new(finished_board_config)
+
+    assert_equal(true, full_board.full?)
   end
 end

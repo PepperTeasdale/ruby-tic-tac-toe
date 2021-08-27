@@ -17,4 +17,21 @@ class GameTest < Minitest::Test
   def test_finished_returns_false_when_the_game_is_not_complete
     assert_equal false, @game.finished?
   end
+
+  def test_finished_returns_true_when_the_game_has_no_open_squares
+    finished_board_config = [
+      ["x", "o", "x"],
+      ["x", "x", "o"],
+      ["o", "x", "o"],
+    ]
+    finished_game = Game.new(
+      board: Board.new(finished_board_config),
+      players: [
+        Player.new(name: "Player one", marker: "x"),
+        Player.new(name: "Player two", marker: "y"),
+      ],
+    )
+
+    assert_equal true, finished_game.finished?
+  end
 end

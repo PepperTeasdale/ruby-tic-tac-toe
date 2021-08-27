@@ -5,6 +5,10 @@ class Game
   end
 
   def finished?
-    false
+    board.full?
   end
+
+  private
+
+  attr_reader :board, :players
 end

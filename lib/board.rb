@@ -1,10 +1,6 @@
 class Board
-  def initialize
-    @board = [
-      [" ", " ", " "],
-      [" ", " ", " "],
-      [" ", " ", " "],
-    ]
+  def initialize(board = empty_board)
+    @board = board
   end
 
   def to_s
@@ -21,7 +17,19 @@ class Board
     board[x][y] = value
   end
 
+  def full?
+    !board.flatten.any? { |cell| cell == " " }
+  end
+
   private
 
   attr_accessor :board
+
+  def empty_board
+    [
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "],
+    ]
+  end
 end
