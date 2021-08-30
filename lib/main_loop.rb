@@ -9,18 +9,30 @@ class MainLoop
 
   def run
     clear
-    puts "#{game.current_player.name} turn"
-    puts "Enter row and column you want to mark, separated by a space:"
+
+    while !game.finished?
+      begin
+        game.make_move
+        clear
+      rescue Game::OccupiedCellError, Board::InvalidCellError, Player::InvalidInputError => e
+        clear
+        puts e.message
+        puts
+        next
+      end
+    end
+
+    if game.winner
+      puts "#{game.winner.name} wins!"
+    else
+      puts "Cat's game"
+    end
     puts
     puts game.board
-
-    row, col = gets.chomp.split(" ").map(&:to_i)
-
-    game.make_move(row, col)
   end
 
   def clear
-    `clear` || `cls`
+    system("clear") || system("cls")
   end
 
   private
@@ -29,18 +41,10 @@ class MainLoop
 end
 
 if __FILE__ == $0
-  player_1 = Player.new(name: 'Player 1', marker: 'x')
-  player_2 = Player.new(name: 'Player 2', marker: 'y')
+  player_1 = Player.new(name: "Player 1", marker: Board::X)
+  player_2 = Player.new(name: "Player 2", marker: Board::O)
   board = Board.new
   game = Game.new(board: board, players: [player_1, player_2])
 
-  while !game.finished?
-    MainLoop.new(game).run
-  end
-
-  if game.winner
-    puts "#{game.winner.name} wins!"
-  else
-    puts "Cat's game"
-  end
+  MainLoop.new(game).run
 end

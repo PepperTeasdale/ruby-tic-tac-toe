@@ -1,4 +1,8 @@
 class Board
+  EMPTY_SPACE = " "
+  X = "x"
+  O = "o"
+
   class InvalidCellError < Exception; end
 
   def initialize(board = empty_board)
@@ -20,7 +24,7 @@ class Board
   end
 
   def full?
-    !board.flatten.any? { |cell| cell == " " }
+    !board.flatten.any? { |cell| cell == Board::EMPTY_SPACE }
   end
 
   def sequences
@@ -43,9 +47,9 @@ class Board
 
   def empty_board
     [
-      [" ", " ", " "],
-      [" ", " ", " "],
-      [" ", " ", " "],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
     ]
   end
 end

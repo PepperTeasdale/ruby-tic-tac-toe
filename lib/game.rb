@@ -23,7 +23,8 @@ class Game
     return players[@current_move]
   end
 
-  def make_move(row, col)
+  def make_move
+    row, col = current_player.get_move(self)
     check_move(row, col)
     board.set_cell_value(row, col, current_player.marker)
     increment_current_move
@@ -35,7 +36,9 @@ class Game
 
   def check_move(row, col)
     board.valid_cell?(row, col)
-    raise OccupiedCellError if board.get_cell_value(row, col) != " "
+    if board.get_cell_value(row, col) != Board::EMPTY_SPACE
+      raise OccupiedCellError.new("That square is already taken, enter another cell")
+    end
   end
 
   def increment_current_move

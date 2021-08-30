@@ -8,9 +8,9 @@ class BoardTest < Minitest::Test
 
   def test_board_can_be_initialized_with_custom_board
     board_config = board = [
-      [" ", " ", "x"],
-      [" ", " ", " "],
-      [" ", " ", " "],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::X],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
     ]
     custom_board = Board.new(board_config)
 
@@ -46,26 +46,26 @@ class BoardTest < Minitest::Test
    |   |   
     BOARD
 
-    @board.set_cell_value(0, 0, "x")
+    @board.set_cell_value(0, 0, Board::X)
     assert_equal expected_board, @board.to_s
   end
 
   def test_get_cell_value_returns_symbol_of_the_specified_cell_value
     actual = @board.get_cell_value(0, 0)
-    assert_equal " ", actual
+    assert_equal Board::EMPTY_SPACE, actual
   end
 
   def test_set_cell_value_updates_the_cell_state
-    @board.set_cell_value(0, 0, "x")
+    @board.set_cell_value(0, 0, Board::X)
     actual = @board.get_cell_value(0, 0)
-    assert_equal "x", actual
+    assert_equal Board::X, actual
   end
 
   def test_full_returns_true_when_all_cells_are_occupied
     finished_board_config = [
-      ["x", "x", "x"],
-      ["x", "x", "x"],
-      ["x", "x", "x"],
+      [Board::X, Board::X, Board::X],
+      [Board::X, Board::X, Board::X],
+      [Board::X, Board::X, Board::X],
     ]
 
     full_board = Board.new(finished_board_config)
