@@ -1,6 +1,8 @@
-require_relative "./game"
-require_relative "./board"
-require_relative "./player"
+# frozen_string_literal: true
+
+require_relative './game'
+require_relative './board'
+require_relative './player'
 
 class MainLoop
   def initialize(game)
@@ -10,7 +12,7 @@ class MainLoop
   def run
     clear
 
-    while !game.finished?
+    until game.finished?
       begin
         game.make_move
         clear
@@ -32,7 +34,7 @@ class MainLoop
   end
 
   def clear
-    system("clear") || system("cls")
+    system('clear') || system('cls')
   end
 
   private
@@ -40,9 +42,9 @@ class MainLoop
   attr_reader :game
 end
 
-if __FILE__ == $0
-  player_1 = Player.new(name: "Player 1", marker: Board::X)
-  player_2 = Player.new(name: "Player 2", marker: Board::O)
+if __FILE__ == $PROGRAM_NAME
+  player_1 = Player.new(name: 'Player 1', marker: Board::X)
+  player_2 = Player.new(name: 'Player 2', marker: Board::O)
   board = Board.new
   game = Game.new(board: board, players: [player_1, player_2])
 

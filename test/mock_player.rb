@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MockPlayer
   attr_reader :name, :marker
 
@@ -14,7 +16,7 @@ class MockPlayer
   end
 
   def get_move(_game)
-    return [row, col]
+    [row, col]
   end
 
   private

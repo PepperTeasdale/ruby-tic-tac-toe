@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Game
   attr_reader :board
 
@@ -20,7 +22,7 @@ class Game
   end
 
   def current_player
-    return players[current_move]
+    players[current_move]
   end
 
   def make_move
@@ -30,7 +32,7 @@ class Game
     increment_current_move
   end
 
-  class OccupiedCellError < Exception; end
+  class OccupiedCellError < RuntimeError; end
 
   private
 
@@ -38,9 +40,9 @@ class Game
 
   def check_move(row, col)
     board.valid_cell?(row, col)
-    if board.get_cell_value(row, col) != Board::EMPTY_SPACE
-      raise OccupiedCellError.new("That square is already taken, enter another cell")
-    end
+    return if board.get_cell_value(row, col) == Board::EMPTY_SPACE
+
+    raise OccupiedCellError, 'That square is already taken, enter another cell'
   end
 
   def increment_current_move

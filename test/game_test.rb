@@ -1,22 +1,24 @@
-require "minitest/autorun"
-require_relative "../lib/game"
-require_relative "../lib/board"
-require_relative "../lib/player"
-require_relative "./mock_player"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require_relative '../lib/game'
+require_relative '../lib/board'
+require_relative '../lib/player'
+require_relative './mock_player'
 
 class GameTest < Minitest::Test
   def setup
-    @player_1 = MockPlayer.new(name: "Player one", marker: Board::X)
+    @player_1 = MockPlayer.new(name: 'Player one', marker: Board::X)
     @player_1.mock_move(0, 0)
-    @player_2 = MockPlayer.new(name: "Player two", marker: Board::O)
+    @player_2 = MockPlayer.new(name: 'Player two', marker: Board::O)
     @player_2.mock_move(1, 1)
 
     @game = Game.new(
       board: Board.new,
       players: [
         @player_1,
-        @player_2,
-      ],
+        @player_2
+      ]
     )
   end
 
@@ -28,31 +30,14 @@ class GameTest < Minitest::Test
     finished_board_config = [
       [Board::X, Board::O, Board::X],
       [Board::X, Board::X, Board::O],
-      [Board::O, Board::X, Board::O],
+      [Board::O, Board::X, Board::O]
     ]
     finished_game = Game.new(
       board: Board.new(finished_board_config),
       players: [
-        Player.new(name: "Player one", marker: Board::X),
-        Player.new(name: "Player two", marker: Board::O),
-      ],
-    )
-
-    assert_equal true, finished_game.finished?
-  end
-
-  def test_finished_returns_true_when_the_game_has_no_open_squares
-    finished_board_config = [
-      [Board::X, Board::O, Board::X],
-      [Board::X, Board::X, Board::O],
-      [Board::O, Board::X, Board::O],
-    ]
-    finished_game = Game.new(
-      board: Board.new(finished_board_config),
-      players: [
-        Player.new(name: "Player one", marker: Board::X),
-        Player.new(name: "Player two", marker: Board::O),
-      ],
+        Player.new(name: 'Player one', marker: Board::X),
+        Player.new(name: 'Player two', marker: Board::O)
+      ]
     )
 
     assert_equal true, finished_game.finished?
@@ -62,14 +47,14 @@ class GameTest < Minitest::Test
     won_board_config = [
       [Board::X, Board::X, Board::X],
       [Board::O, Board::O, Board::EMPTY_SPACE],
-      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
-        Player.new(name: "Player one", marker: Board::X),
-        Player.new(name: "Player two", marker: Board::O),
-      ],
+        Player.new(name: 'Player one', marker: Board::X),
+        Player.new(name: 'Player two', marker: Board::O)
+      ]
     )
 
     assert_equal true, won_game.finished?
@@ -79,17 +64,17 @@ class GameTest < Minitest::Test
     won_board_config = [
       [Board::X, Board::X, Board::X],
       [Board::O, Board::O, Board::EMPTY_SPACE],
-      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
 
-    player_1 = Player.new(name: "Player one", marker: Board::X)
+    player_1 = Player.new(name: 'Player one', marker: Board::X)
 
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
         player_1,
-        Player.new(name: "Player two", marker: Board::O),
-      ],
+        Player.new(name: 'Player two', marker: Board::O)
+      ]
     )
 
     assert_equal player_1, won_game.winner
@@ -99,17 +84,17 @@ class GameTest < Minitest::Test
     won_board_config = [
       [Board::X, Board::O, Board::EMPTY_SPACE],
       [Board::X, Board::O, Board::EMPTY_SPACE],
-      [Board::X, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::X, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
 
-    player_1 = Player.new(name: "Player one", marker: Board::X)
+    player_1 = Player.new(name: 'Player one', marker: Board::X)
 
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
         player_1,
-        Player.new(name: "Player two", marker: Board::O),
-      ],
+        Player.new(name: 'Player two', marker: Board::O)
+      ]
     )
 
     assert_equal player_1, won_game.winner
@@ -119,17 +104,17 @@ class GameTest < Minitest::Test
     won_board_config = [
       [Board::O, Board::X, Board::X],
       [Board::X, Board::O, Board::EMPTY_SPACE],
-      [Board::X, Board::EMPTY_SPACE, Board::O],
+      [Board::X, Board::EMPTY_SPACE, Board::O]
     ]
 
-    player_2 = Player.new(name: "Player two", marker: Board::O)
+    player_2 = Player.new(name: 'Player two', marker: Board::O)
 
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
-        Player.new(name: "Player one", marker: Board::X),
-        player_2,
-      ],
+        Player.new(name: 'Player one', marker: Board::X),
+        player_2
+      ]
     )
 
     assert_equal player_2, won_game.winner
@@ -159,15 +144,15 @@ class GameTest < Minitest::Test
     board_config = [
       [Board::X, Board::O, Board::EMPTY_SPACE],
       [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
-      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
-    player_1 = MockPlayer.new(name: "Player one", marker: Board::X)
+    player_1 = MockPlayer.new(name: 'Player one', marker: Board::X)
     game = Game.new(
       board: Board.new(board_config),
       players: [
         player_1,
-        Player.new(name: "Player two", marker: Board::O),
-      ],
+        Player.new(name: 'Player two', marker: Board::O)
+      ]
     )
 
     assert_raises Game::OccupiedCellError do

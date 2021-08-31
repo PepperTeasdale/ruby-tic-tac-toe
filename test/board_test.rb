@@ -1,5 +1,7 @@
-require "minitest/autorun"
-require_relative "../lib/board"
+# frozen_string_literal: true
+
+require 'minitest/autorun'
+require_relative '../lib/board'
 
 class BoardTest < Minitest::Test
   def setup
@@ -7,19 +9,19 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_can_be_initialized_with_custom_board
-    board_config = board = [
+    board_config = [
       [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::X],
       [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
-      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE],
+      [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
     custom_board = Board.new(board_config)
 
     expected_board = <<~BOARD.chomp
-   |   | x 
------------
-   |   |   
------------
-   |   |   
+         |   | x#{' '}
+      -----------
+         |   |#{'   '}
+      -----------
+         |   |#{'   '}
     BOARD
 
     assert_equal expected_board, custom_board.to_s
@@ -27,11 +29,11 @@ class BoardTest < Minitest::Test
 
   def test_to_s_shows_initial_board_state
     expected_board = <<~BOARD.chomp
-   |   |   
------------
-   |   |   
------------
-   |   |   
+         |   |#{'   '}
+      -----------
+         |   |#{'   '}
+      -----------
+         |   |#{'   '}
     BOARD
 
     assert_equal expected_board, @board.to_s
@@ -39,11 +41,11 @@ class BoardTest < Minitest::Test
 
   def test_to_s_shows_board_state_after_cells_are_set
     expected_board = <<~BOARD.chomp
- x |   |   
------------
-   |   |   
------------
-   |   |   
+       x |   |#{'   '}
+      -----------
+         |   |#{'   '}
+      -----------
+         |   |#{'   '}
     BOARD
 
     @board.set_cell_value(0, 0, Board::X)
@@ -65,7 +67,7 @@ class BoardTest < Minitest::Test
     finished_board_config = [
       [Board::X, Board::X, Board::X],
       [Board::X, Board::X, Board::X],
-      [Board::X, Board::X, Board::X],
+      [Board::X, Board::X, Board::X]
     ]
 
     full_board = Board.new(finished_board_config)
@@ -75,22 +77,22 @@ class BoardTest < Minitest::Test
 
   def test_sequences_returns_all_columns_rows_and_diagonal_sequences
     board_config = [
-      ["a", "b", "c"],
-      ["d", "e", "f"],
-      ["g", "h", "i"],
+      %w[a b c],
+      %w[d e f],
+      %w[g h i]
     ]
 
     board = Board.new(board_config)
 
     expected_sequences = [
-      ["a", "b", "c"],
-      ["d", "e", "f"],
-      ["g", "h", "i"],
-      ["a", "d", "g"],
-      ["b", "e", "h"],
-      ["c", "f", "i"],
-      ["a", "e", "i"],
-      ["g", "e", "c"],
+      %w[a b c],
+      %w[d e f],
+      %w[g h i],
+      %w[a d g],
+      %w[b e h],
+      %w[c f i],
+      %w[a e i],
+      %w[g e c]
     ]
 
     assert_equal(expected_sequences, board.sequences)
