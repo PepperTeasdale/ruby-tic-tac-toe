@@ -20,7 +20,7 @@ class Game
   end
 
   def current_player
-    return players[@current_move]
+    return players[current_move]
   end
 
   def make_move
@@ -34,6 +34,8 @@ class Game
 
   private
 
+  attr_accessor :current_move
+
   def check_move(row, col)
     board.valid_cell?(row, col)
     if board.get_cell_value(row, col) != Board::EMPTY_SPACE
@@ -42,7 +44,7 @@ class Game
   end
 
   def increment_current_move
-    @current_move = (@current_move + 1) % players.length
+    self.current_move = (current_move + 1) % players.length
   end
 
   attr_reader :players
