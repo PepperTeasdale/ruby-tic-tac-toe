@@ -2,7 +2,8 @@
 
 require_relative './game'
 require_relative './board'
-require_relative './player'
+require_relative './human_player'
+require_relative './computer_player'
 
 class MainLoop
   def initialize(game)
@@ -43,8 +44,8 @@ class MainLoop
 end
 
 if __FILE__ == $PROGRAM_NAME
-  player_1 = Player.new(name: 'Player 1', marker: Board::X)
-  player_2 = Player.new(name: 'Player 2', marker: Board::O)
+  player_1 = HumanPlayer.new(name: 'Player 1', marker: Board::X)
+  player_2 = ComputerPlayer.new(name: 'Player 2', marker: Board::O)
   board = Board.new
   game = Game.new(board: board, players: [player_1, player_2])
 

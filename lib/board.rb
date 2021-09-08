@@ -43,6 +43,16 @@ class Board
     raise InvalidCellError, "Row and Column values must be between 0 and #{board.length}"
   end
 
+  def unoccupied_cells
+    cells = []
+    board.each_with_index do |row, i|
+      row.each_with_index do |col, j|
+        cells << [i, j] if col == EMPTY_SPACE
+      end
+    end
+    cells
+  end
+
   private
 
   attr_accessor :board

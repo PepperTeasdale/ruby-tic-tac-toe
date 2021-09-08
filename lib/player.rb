@@ -8,19 +8,8 @@ class Player
     @marker = marker
   end
 
-  def get_move(game)
-    puts "#{name} turn"
-    puts 'Enter row and column you want to mark, separated by a space:'
-    puts
-    puts game.board
-
-    cell = gets.chomp.split(' ').map(&:to_i)
-    if cell.length != 2
-      raise InvalidInputError, 'Invalid input. Type the row and column where you wish to place your marker
-separated by a space (e.g. "0 2")'
-    end
-
-    cell
+  def get_move(_game)
+    raise NotImplementedError, "must implement #get_move in subclass of #{self.class}"
   end
 
   class InvalidInputError < RuntimeError; end

@@ -35,8 +35,8 @@ class GameTest < Minitest::Test
     finished_game = Game.new(
       board: Board.new(finished_board_config),
       players: [
-        Player.new(name: 'Player one', marker: Board::X),
-        Player.new(name: 'Player two', marker: Board::O)
+        HumanPlayer.new(name: 'Player one', marker: Board::X),
+        HumanPlayer.new(name: 'Player two', marker: Board::O)
       ]
     )
 
@@ -52,8 +52,8 @@ class GameTest < Minitest::Test
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
-        Player.new(name: 'Player one', marker: Board::X),
-        Player.new(name: 'Player two', marker: Board::O)
+        HumanPlayer.new(name: 'Player one', marker: Board::X),
+        HumanPlayer.new(name: 'Player two', marker: Board::O)
       ]
     )
 
@@ -67,13 +67,13 @@ class GameTest < Minitest::Test
       [Board::EMPTY_SPACE, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
 
-    player_1 = Player.new(name: 'Player one', marker: Board::X)
+    player_1 = HumanPlayer.new(name: 'Player one', marker: Board::X)
 
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
         player_1,
-        Player.new(name: 'Player two', marker: Board::O)
+        HumanPlayer.new(name: 'Player two', marker: Board::O)
       ]
     )
 
@@ -87,13 +87,13 @@ class GameTest < Minitest::Test
       [Board::X, Board::EMPTY_SPACE, Board::EMPTY_SPACE]
     ]
 
-    player_1 = Player.new(name: 'Player one', marker: Board::X)
+    player_1 = HumanPlayer.new(name: 'Player one', marker: Board::X)
 
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
         player_1,
-        Player.new(name: 'Player two', marker: Board::O)
+        HumanPlayer.new(name: 'Player two', marker: Board::O)
       ]
     )
 
@@ -107,12 +107,12 @@ class GameTest < Minitest::Test
       [Board::X, Board::EMPTY_SPACE, Board::O]
     ]
 
-    player_2 = Player.new(name: 'Player two', marker: Board::O)
+    player_2 = HumanPlayer.new(name: 'Player two', marker: Board::O)
 
     won_game = Game.new(
       board: Board.new(won_board_config),
       players: [
-        Player.new(name: 'Player one', marker: Board::X),
+        HumanPlayer.new(name: 'Player one', marker: Board::X),
         player_2
       ]
     )
@@ -151,7 +151,7 @@ class GameTest < Minitest::Test
       board: Board.new(board_config),
       players: [
         player_1,
-        Player.new(name: 'Player two', marker: Board::O)
+        HumanPlayer.new(name: 'Player two', marker: Board::O)
       ]
     )
 

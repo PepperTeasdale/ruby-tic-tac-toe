@@ -32,6 +32,10 @@ class Game
     increment_current_move
   end
 
+  def available_moves
+    board.unoccupied_cells
+  end
+
   class OccupiedCellError < RuntimeError; end
 
   private
